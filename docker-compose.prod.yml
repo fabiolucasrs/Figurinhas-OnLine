@@ -1,0 +1,113 @@
+services:
+  app:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile.prod
+    container_name: figurinhas_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./docker/php/php.prod.ini:/usr/local/etc/php/conf.d/custom.ini
+    environment:
+      - APP_ENV=production
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - figurinhas_network
+
+  scheduler:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile.prod
+    container_name: figurinhas_scheduler
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: sh -c "while true; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done"
+    depends_on:
+      - app
+    networks:
+      - figurinhas_network
+
+  queue:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile.prod
+    container_name: figurinhas_queue
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    depends_on:
+      - app
+    networks:
+      - figurinhas_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: figurinhas_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/active.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/ssl:/etc/nginx/ssl
+    depends_on:
+      - app
+    networks:
+      - figurinhas_network
+
+  db:
+    image: mysql:8.0
+    container_name: figurinhas_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - figurinhas_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - figurinhas_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: figurinhas_redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - figurinhas_network
+
+  certbot:
+    image: certbot/certbot
+    container_name: figurinhas_certbot
+    volumes:
+      - ./docker/ssl:/etc/letsencrypt
+      - .:/var/www
+    profiles:
+      - certbot
+
+volumes:
+  figurinhas_db_data:
+
+networks:
+  figurinhas_network:
+    driver: bridge

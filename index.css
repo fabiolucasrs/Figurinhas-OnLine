@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 235, 59, 0.4);
+    box-shadow: 0 15px 35px -5px rgba(255, 235, 59, 0.15), 0 5px 15px -5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
+  }
+
+  .glass-input {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    transition: all 0.25s ease-in-out;
+  }
+
+  .glass-input:focus {
+    background: rgba(0, 0, 0, 0.35);
+    border-color: #FFEB3B;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 235, 59, 0.2);
+  }
+
+  .glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 12px rgba(255, 235, 59, 0.6);
+  }
+
+  .text-glow-green {
+    text-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+  }
+
+  .text-gradient-gold-green {
+    background: linear-gradient(90deg, #FFD600 0%, #FFEB3B 50%, #4CAF50 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+  }
+
+  .text-gradient-logo {
+    background: linear-gradient(90deg, #ffffff 0%, #FFD600 50%, #4CAF50 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+  }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 40%, #F9A825 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+select.glass-input option {
+  background: #1B5E20;
+  color: white;
+}
