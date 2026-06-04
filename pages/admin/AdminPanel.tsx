@@ -3,7 +3,6 @@ import {
   FileText, Landmark, RefreshCw, ShieldAlert,
   Trash2, UserCheck, UserX, Users
 } from 'lucide-react'
-import { Navigate } from 'react-router-dom'
 import { ConfirmModal } from '../../components/ui/Modal'
 import { useAuth } from '../../hooks/useAuth'
 import { useToast } from '../../hooks/useToast'
@@ -14,7 +13,7 @@ import { formatCurrency, formatDate } from '../../utils/format'
 type Tab = 'dash' | 'users' | 'ads' | 'reports'
 
 export const AdminPanel: React.FC = () => {
-  const { user } = useAuth()
+  useAuth()
   const { showToast } = useToast()
   const [tab, setTab] = useState<Tab>('dash')
   const [dashboard, setDashboard] = useState<AdminDashboard | null>(null)

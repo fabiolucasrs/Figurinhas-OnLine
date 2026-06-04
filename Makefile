@@ -1,5 +1,5 @@
 DC = docker compose
-APP = $(DC) exec app
+APP = $(DC) exec -w /var/www/backend app
 GREEN = \033[0;32m
 YELLOW = \033[1;33m
 NC = \033[0m
@@ -52,7 +52,7 @@ fresh:
 	$(APP) php artisan migrate:fresh --seed
 
 shell:
-	$(DC) exec -it app bash
+	$(DC) exec -it -w /var/www/backend app bash
 
 db:
 	$(DC) exec -it db mysql -ufigurinhas -psecret figurinhas

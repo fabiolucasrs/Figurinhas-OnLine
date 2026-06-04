@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /tmp/laravel-init/composer.lock backend/composer.lock)",
+      "Bash(cp -n backend/.env.example backend/.env)",
+      "Bash(cp /tmp/laravel-init/composer.json backend/composer.json)",
+      "Bash(docker compose *)"
+    ]
+  }
+}

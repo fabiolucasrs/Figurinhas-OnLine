@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AlertCircle, CheckCircle, Lock, Mail, Shield, Sparkles, User } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -143,17 +143,17 @@ export const LoginPage: React.FC = () => {
           </form>
         ) : (
           <form onSubmit={handleRegister} className="space-y-4">
-            {[
-              { label: 'Nome Completo', icon: <User />, val: name, set: setName, type: 'text', placeholder: 'Seu nome completo...' },
-              { label: 'E-mail', icon: <Mail />, val: email, set: setEmail, type: 'email', placeholder: 'seu@email.com' },
-              { label: 'Senha', icon: <Lock />, val: password, set: setPassword, type: 'password', placeholder: 'Mínimo 6 caracteres...' },
-              { label: 'Confirmar Senha', icon: <Lock />, val: confirm, set: setConfirm, type: 'password', placeholder: 'Repita a senha...' },
-            ].map(({ label, icon, val, set, type, placeholder }) => (
+            {([
+              { label: 'Nome Completo', Icon: User, val: name, set: setName, type: 'text', placeholder: 'Seu nome completo...' },
+              { label: 'E-mail', Icon: Mail, val: email, set: setEmail, type: 'email', placeholder: 'seu@email.com' },
+              { label: 'Senha', Icon: Lock, val: password, set: setPassword, type: 'password', placeholder: 'Mínimo 6 caracteres...' },
+              { label: 'Confirmar Senha', Icon: Lock, val: confirm, set: setConfirm, type: 'password', placeholder: 'Repita a senha...' },
+            ] as const).map(({ label, Icon, val, set, type, placeholder }) => (
               <div key={label} className="space-y-1">
                 <label className="text-xs text-slate-400 font-bold uppercase tracking-wider block">{label}</label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none">
-                    {React.cloneElement(icon as React.ReactElement, { className: 'w-4 h-4' })}
+                    <Icon className="w-4 h-4" />
                   </div>
                   <input type={type} value={val} onChange={e => set(e.target.value)} placeholder={placeholder} className={inputCls} />
                 </div>

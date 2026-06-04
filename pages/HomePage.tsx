@@ -37,7 +37,7 @@ export const HomePage: React.FC = () => {
         page: p,
       })
       setAnnouncements(prev => reset ? res.data : [...prev, ...res.data])
-      setLastPage(res.last_page)
+      setLastPage(res.meta.last_page)
       if (reset) setPage(1)
     } catch {
       showToast('error', 'Erro ao carregar anúncios.')
