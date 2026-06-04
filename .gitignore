@@ -1,6 +1,14 @@
 # Dependencies
 node_modules/
 vendor/
+backend/vendor/
+
+# Composer cache
+.composer/
+
+# Root-level composer files (from Docker containers)
+composer.json
+composer.lock
 
 # Environment
 .env
