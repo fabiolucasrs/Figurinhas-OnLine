@@ -24,11 +24,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::put('/auth/profile', [AuthController::class, 'updateProfile']);
 
+    // Must come before {announcement} wildcard routes
+    Route::get('/my-announcements', [AnnouncementController::class, 'mine']);
+
     Route::post('/announcements', [AnnouncementController::class, 'store']);
     Route::put('/announcements/{announcement}', [AnnouncementController::class, 'update']);
     Route::delete('/announcements/{announcement}', [AnnouncementController::class, 'destroy']);
     Route::patch('/announcements/{announcement}/toggle-status', [AnnouncementController::class, 'toggleStatus']);
-    Route::get('/announcements/mine', [AnnouncementController::class, 'mine']);
 
     Route::get('/purchases', [PurchaseController::class, 'index']);
     Route::post('/purchases', [PurchaseController::class, 'store']);

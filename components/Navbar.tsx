@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Bell, ChevronDown, Menu, Plus, Search, Shield, X } from 'lucide-react'
+import { Bell, ChevronDown, Plus, Search, Shield } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { getInitials } from '../utils/format'
@@ -11,9 +11,7 @@ interface Props {
 export const Navbar: React.FC<Props> = ({ onSearch }) => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
 
   const handleLogout = async () => {

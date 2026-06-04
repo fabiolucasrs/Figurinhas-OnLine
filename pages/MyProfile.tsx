@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Edit, Heart, Pause, Play, Settings, ShoppingBag, Star,
-  Trash2, User, X
+  Trash2, X
 } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { EmptyState } from '../components/ui/EmptyState'
@@ -43,7 +43,6 @@ export const MyProfile: React.FC = () => {
 
   const [profileForm, setProfileForm] = useState({ name: user?.name ?? '', email: user?.email ?? '' })
   const [savingProfile, setSavingProfile] = useState(false)
-  const avatarRef = useRef<HTMLInputElement>(null)
 
   const changeTab = (t: Tab) => {
     setActiveTab(t)

@@ -16,9 +16,6 @@ type Tab = 'dash' | 'users' | 'ads' | 'reports'
 export const AdminPanel: React.FC = () => {
   const { user } = useAuth()
   const { showToast } = useToast()
-
-  if (!user || user.role !== 'admin') return <Navigate to="/" replace />
-
   const [tab, setTab] = useState<Tab>('dash')
   const [dashboard, setDashboard] = useState<AdminDashboard | null>(null)
   const [users, setUsers] = useState<User[]>([])

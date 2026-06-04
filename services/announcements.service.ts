@@ -73,7 +73,7 @@ export const announcementsService = {
   },
 
   async myAnnouncements(): Promise<Announcement[]> {
-    const { data } = await api.get<{ data: Announcement[] }>('/announcements/mine')
+    const { data } = await api.get<{ data: Announcement[] }>('/my-announcements')
     return data.data
   },
 }
